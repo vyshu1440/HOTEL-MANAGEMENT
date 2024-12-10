@@ -1,0 +1,89 @@
+<html lang="en">
+  <head>
+    <title>Document</title>
+  </head>
+  <body style="Background:grey;">
+
+	
+      <form id="form" action="catering.php" method="post">
+      <label for="name">NAME OF THE CUSTOMER:</label>
+      <input type="text" name="name" id="name" placeholder="Enter your name" /><br />
+      <span class="error" style="color:red" id="nerror"></span><br />
+      <label for="num">Contact:</label>
+      <input type="text" name="number" id="num" placeholder="Enter your phone number"><br>
+      <span class="error" style="color:red" id="derror"></span><br>
+      <label for="venue">VENUE :</label>
+      <input type="text" name="venue" placeholder="Enter your location" /><br /><br>
+      <label> DATE :</label>
+      <input type="text" name="date" id="date"><br>
+
+<h4> Select Number of items</h4>
+<input type="number" min=0 max=15 name="num" id="num"><br><br>
+<label>List of food items: </label><br>
+<input type="text" name="fooditem" placeholder="Enter your fooditem" /><br /><br>
+
+       <button type="submit">Submit</button>
+</fieldset>
+</form>
+      
+    <script>
+      let form = document.getElementById("form");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        validate();
+      });
+
+        function validate() {
+        let name = document.getElementById("name").value.trim();
+	
+	let cont = document.getElementById("num").value.trim();
+	
+        let is_name_valid = true;
+	let is_cont_valid= true;
+	
+        if (name == "") {
+          document.getElementById("nerror").innerText =
+            "*Name cannot be empty";
+          return;
+        }
+        if (/\d/.test(name)) {
+          document.getElementById("nerror").innerText =
+            "*Name cannot contain digits";
+          is_name_valid = false;
+          return;
+        }
+        if (name.length < 3) {
+          document.getElementById("nerror").innerText =
+            "*Name cannot be lessthan 3 Characters";
+          is_name_valid = false;
+          return;
+        }
+	
+	if(cont==""){
+	  document.getElementById("derror").innerText =
+            "*contact cannot be empty";
+          
+	  return;
+	}
+	
+	
+	if(!/[6-9][0-9]{9}/.test(cont)){
+	  document.getElementById("derror").innerText =
+            "*Enter a valid contact number";
+	  is_cont_valid=false;
+	  return;
+	}
+	if (/\n/.test(cont)) {
+          document.getElementById("derror").innerText =
+            "*cont cannot contain alphabets";
+          is_cont_valid = false;
+          return;
+        }
+        if (is_name_valid  && is_cont_valid) {
+          form.submit();
+        }
+      }
+    </script>
+
+  </body>
+</html>
